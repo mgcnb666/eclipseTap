@@ -15,7 +15,12 @@ go version
 进入eclipseTap
 
 cd eclipseTap
+打开main.go修改171 172行的内容
 
+{"YourMainPublicKey1", "[YourPrivateKey1]", 1000, 2000},
+		{"YourMainPublicKey2", "[YourPrivateKey2]", 1000, 2000},
+
+  替换成你自己的
 安装依赖
 
 
