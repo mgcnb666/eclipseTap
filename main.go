@@ -140,6 +140,9 @@ func (t *Clicker) click() error {
 
 func (t *Clicker) startTask() {
 	t.running = true
+	runDuration := time.Duration(rand.Intn(60)+60) * time.Minute // Random duration between 60 to 120 minutes
+	startTime := time.Now()
+
 	for {
 		select {
 		case <-t.stopChan:
@@ -154,6 +157,17 @@ func (t *Clicker) startTask() {
 				continue
 			}
 			t.addDelay()
+
+			// Check if the running time has exceeded the specified duration
+			if time.Since(startTime) >= runDuration {
+				// Take a break for a random time between 10 to 30 minutes
+				breakDuration := time.Duration(rand.Intn(21)+10) * time.Minute // Random duration between 10 to 30 minutes
+				fmt.Printf("Taking a break for %v minutes...\n", breakDuration.Minutes())
+				time.Sleep(breakDuration)
+				// Reset the start time and choose a new random running duration
+				startTime = time.Now()
+				runDuration = time.Duration(rand.Intn(60)+60) * time.Minute // Reset to a new random duration
+			}
 		}
 	}
 }
@@ -168,8 +182,8 @@ func main() {
 		minDelay     int
 		maxDelay     int
 	}{
-		{"YourMainPublicKey1", "[YourPrivateKey1]", 1000, 2000},
-		{"YourMainPublicKey2", "[YourPrivateKey2]", 1000, 2000},
+		{"地址", "私钥", 1000, 2000},
+		{"地址", "私钥", 1000, 2000},
 		// 可以继续添加更多配置
 	}
 
